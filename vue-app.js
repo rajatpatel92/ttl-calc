@@ -1,7 +1,7 @@
 var app = new Vue({
     el: '#app',
     data: {
-        now: moment().format('hh:mm a'),
+        currentTime: moment(),
         inTimeHH: null,
         inTimeMM: null,
         breakTimeHH: null,
@@ -17,6 +17,12 @@ var app = new Vue({
     },
     mounted: function () {
         this.retrievePersistData();
+    },
+    created: function () {
+        var self = this;
+        setInterval(function () {
+            self.currentTime = moment();
+        }, 1000);
     },
     computed: {
         // a computed getter
@@ -48,22 +54,22 @@ var app = new Vue({
             return this.calculated830avg.format(this.strFormat);
         },
         hrsToGo430today: function () {
-            return this.getDiffString(this.calculated430.diff(moment(), 'minutes'));
+            return this.getDiffString(this.calculated430.diff(this.currentTime, 'seconds'));
         },
         hrsToGo700today: function () {
-            return this.getDiffString(this.calculated700.diff(moment(), 'minutes'));
+            return this.getDiffString(this.calculated700.diff(this.currentTime, 'seconds'));
         },
         hrsToGo830today: function () {
-            return this.getDiffString(this.calculated830.diff(moment(), 'minutes'));
+            return this.getDiffString(this.calculated830.diff(this.currentTime, 'seconds'));
         },
         hrsToGo830avg: function () {
-            return this.getDiffString(this.calculated830avg.diff(moment(), 'minutes'));
+            return this.getDiffString(this.calculated830avg.diff(this.currentTime, 'seconds'));
         }
     },
     methods: {
         getDiffString : function (difference) {
             if (difference > 0){
-                return moment().hour(0).minutes(difference).format(this.strToGoFormat) + " to go";
+                return moment().hour(0).minutes(0).seconds(difference).format(this.strToGoFormat) + " to go";
             } else {
                 return "Done";
             }
@@ -87,8 +93,8 @@ var app = new Vue({
         retrievePersistData: function () {
             this.getLocalData('lastAccessDay', this, function (storedAccessDay) {
                 if (storedAccessDay) {
-                    if (storedAccessDay !== moment().dayOfYear().toString()) {
-                        this.lastAccessDay = moment().dayOfYear().toString();
+                    if (storedAccessDay !== this.currentTime.dayOfYear().toString()) {
+                        this.lastAccessDay = this.currentTime.dayOfYear().toString();
                     }
                     this.getLocalData('inTimeHH', this, function (value) {
                         if (value.inTimeHH) {
@@ -131,13 +137,13 @@ var app = new Vue({
                         }
                     });
                 } else {
-                    this.lastAccessDay = moment().dayOfYear().toString();
-                    this.setLocalData ('lastAccessDay', moment().dayOfYear().toString());
+                    this.lastAccessDay = this.currentTime.dayOfYear().toString();
+                    this.setLocalData ('lastAccessDay', this.currentTime.dayOfYear().toString());
                 }
             });
         },
         updatePersistData: function () {
-            this.setLocalData ('lastAccessDay', moment().dayOfYear().toString());
+            this.setLocalData ('lastAccessDay', this.currentTime.dayOfYear().toString());
             if (this.inTimeHH) this.setLocalData ('inTimeHH', this.inTimeHH.toString());
             if (this.inTimeMM) this.setLocalData('inTimeMM', this.inTimeMM.toString());
             if (this.breakTimeHH) this.setLocalData ('breakTimeHH', this.breakTimeHH.toString());

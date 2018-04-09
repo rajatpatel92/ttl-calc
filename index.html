@@ -24,7 +24,10 @@
 							<label><b>Time In (HH:mm)</b></label>
 						</div>
 						<div class="column">
+							
 							<input v-model="inTimeHH" type="number" placeholder="HH">
+							
+							
 						</div>
 						<div class="column">
 							<input v-model="inTimeMM" type="number" placeholder="MM">
@@ -32,12 +35,9 @@
 					</div>
 					<div class="three column row">
 						<div class="middle aligned column">
-							<label><b>Break Time (HH:mm)</b></label>
+							<label><b>Break Time (in minutes)</b></label>
 						</div>
-						<div class="column">
-							<input v-model="breakTimeHH" type="number" placeholder="HH">
-						</div>
-						<div class="column">
+						<div class="two column">
 							<input v-model="breakTimeMM" type="number" placeholder="MM">
 						</div>
 					</div>
@@ -62,7 +62,7 @@
 						Time Predictions
 					</th>
 					<th colspan="2">
-						Current Time: {{ now }}
+						<i class="clock icon"></i> Now - {{ currentTime.format("h:mm:ss a") }}
 					</th>
 				</tr></thead>
 				<tbody>
