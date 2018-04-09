@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html style="height: fit-content;">
+<head>
+	<title>Time to Leave Planner</title>
+	
+	
+	<script src="jquery-3.1.1.min.js"></script>
+	<script src="vue.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
+	<script src="semantic/semantic.min.js"></script>
+	<script src="moment.min.js"></script>
+	<style>
+		body {width: 800px; height: 200px; overflow: hidden; }
+	</style>
+</head>
+<body>
+		
+  <div id="app" class="ui two columns stackable grid" style="margin: 10px; padding: 5px;">
+		<div class="two column ui form" >
+			<div class="ui segment">
+				<div class="ui three columns grid">
+					<div class="three column row">
+						<div class="middle aligned column">
+							<label><b>Time In (HH:mm)</b></label>
+						</div>
+						<div class="column">
+							<input v-model="inTimeHH" type="number" placeholder="HH">
+						</div>
+						<div class="column">
+							<input v-model="inTimeMM" type="number" placeholder="MM">
+						</div>
+					</div>
+					<div class="three column row">
+						<div class="middle aligned column">
+							<label><b>Break Time (HH:mm)</b></label>
+						</div>
+						<div class="column">
+							<input v-model="breakTimeHH" type="number" placeholder="HH">
+						</div>
+						<div class="column">
+							<input v-model="breakTimeMM" type="number" placeholder="MM">
+						</div>
+					</div>
+					<div class="three column row">
+						<div class="middle aligned column">
+							<label><b>Time Balance (mm or -mm)</b></label>
+						</div>
+						<div class="two column">
+							<input v-model="timeBalanceMM" type="number" placeholder="MM or (-)MM">
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="two column">
+			
+			<table class="ui celled striped table">
+				<thead>
+				<tr>
+					<th>
+						Time Predictions
+					</th>
+					<th colspan="2">
+						Current Time: {{ now }}
+					</th>
+				</tr></thead>
+				<tbody>
+				<tr>
+					<td class="collapsing">
+					<i class="clock icon"></i> <b>8:30 Hours Average</b>
+					</td>
+					<td class="positive">{{ calc830avg }}</td>
+					<td class="left aligned collapsing positive">{{ hrsToGo830avg }}</td>
+				</tr>
+				<tr>
+					<td class="collapsing">
+					<i class="clock icon"></i> <b>8:30 Hours Today</b>
+					</td>
+					<td class="positive">{{ calc830today }}</td>
+					<td class="left aligned collapsing positive">{{ hrsToGo830today }}</td>
+				</tr>
+				<tr>
+					<td class="collapsing">
+					<i class="clock icon"></i> <b>7:00 Hours</b>
+					</td>
+					<td class="warning">{{ calc700today }}</td>
+					<td class="left aligned collapsing warning">{{ hrsToGo700today }}</td>
+				</tr>
+				<tr>
+					<td class="collapsing">
+					<i class="clock icon"></i> <b>4:30 Hours</b>
+					</td>
+					<td class="negative">{{ calc430today }}</td>
+					<td class="left aligned collapsing negative">{{ hrsToGo430today }}</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<script src="vue-app.js"></script>
+</body>
+</html>

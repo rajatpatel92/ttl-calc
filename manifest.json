@@ -1,0 +1,26 @@
+{
+  "name": "!TS_Time Keeper",
+  "manifest_version": 2,
+  "version": "1.0",
+  "description": "TatvaSoft Time Keeper developed by Rajat Patel. Built with goodies from Vue.js & Moment.js",
+  "browser_action": {
+    "default_popup": "index.html",
+	  "default_icon": "icon.png"
+  },
+  "permissions": [ 
+    "storage"
+  ],
+  /*"content_scripts": [{
+      "matches" : ["<all_urls>"],
+      "js": [ 
+          "jquery-3.1.1.min.js",
+          "semantic/semantic.min.js",
+          "moment.min.js",
+          "vue.runtime.min.js",
+          "vue-app.js" ],
+      "css": [
+          "semantic/semantic.min.css"
+      ]
+  }],*/
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
+}
