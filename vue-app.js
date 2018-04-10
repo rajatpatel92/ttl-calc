@@ -13,7 +13,8 @@ var app = new Vue({
         calculated700: null,
         calculated830: null,
         calculated830avg: null,
-        lastAccessDay: null
+        lastAccessDay: null,
+        avgDiffType: null
     },
     mounted: function () {
         this.retrievePersistData();
@@ -64,9 +65,26 @@ var app = new Vue({
         },
         hrsToGo830avg: function () {
             return this.getDiffString(this.calculated830avg.diff(this.currentTime, 'seconds'));
+        },
+        hrsDoneTillNow: function () {
+            return moment().hour(0).minutes(0).seconds(this.currentTime.diff(this.getInTime(), 'seconds'))
+                            .subtract({ hours: this.breakTimeHH,  minutes: this.breakTimeMM })
+                            .format(this.strToGoFormat);
+        },
+        avgDiffIfLeaveNow: function () {
+            if (this.hrsToGo830avg !== "Done") {
+                this.avgDiffType = "Deficit";
+                return moment().hour(0).minutes(0).seconds(this.calculated830avg.diff(this.currentTime, 'seconds')).format(this.strToGoFormat);
+            } else {
+                this.avgDiffType = "Gain";
+                return moment().hour(0).minutes(0).seconds(this.currentTime.diff(this.calculated830avg, 'seconds')).format(this.strToGoFormat);
+            }
         }
     },
     methods: {
+        getInTime: function () {
+            return moment(this.inTimeHH + ":" + this.inTimeMM, 'HH:mm');
+        },
         getDiffString : function (difference) {
             if (difference > 0){
                 return moment().hour(0).minutes(0).seconds(difference).format(this.strToGoFormat) + " to go";

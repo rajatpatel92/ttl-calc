@@ -10,24 +10,22 @@
 	<script src="semantic/semantic.min.js"></script>
 	<script src="moment.min.js"></script>
 	<style>
-		body {width: 800px; height: 200px; overflow: hidden; }
+		body { width: 810px; height: 200px; overflow: hidden; }
 	</style>
 </head>
 <body>
 		
-  <div id="app" class="ui two columns stackable grid" style="margin: 10px; padding: 5px;">
-		<div class="two column ui form" >
-			<div class="ui segment">
+  <div id="app">
+	  <div class="ui two columns stackable grid" style="margin: 10px 10px 0px 10px;padding: 5px;">
+		<div class="column ui form" >
+			<div class="ui segment" style="padding: 22px;">
 				<div class="ui three columns grid">
 					<div class="three column row">
 						<div class="middle aligned column">
 							<label><b>Time In (HH:mm)</b></label>
 						</div>
 						<div class="column">
-							
 							<input v-model="inTimeHH" type="number" placeholder="HH">
-							
-							
 						</div>
 						<div class="column">
 							<input v-model="inTimeMM" type="number" placeholder="MM">
@@ -53,11 +51,10 @@
 			</div>
 		</div>
 
-		<div class="two column">
-			
+		<div class="column">
 			<table class="ui celled striped table">
 				<thead>
-				<tr>
+				<tr class="center aligned">
 					<th>
 						Time Predictions
 					</th>
@@ -96,6 +93,31 @@
 				</tr>
 				</tbody>
 			</table>
+		</div>
+		<div class="column">
+			<table class="ui celled striped table">
+				<thead>
+					<tr class="center aligned">
+						<th>
+						<i class="clock icon"></i> <b>Hours Done Till Now</b>
+						</th>
+						<th class="positive">{{ hrsDoneTillNow }} Hours</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
+		<div class="column">
+			<table class="ui celled striped table">
+				<thead>
+					<tr class="center aligned">
+						<th>
+						<i class="clock icon"></i> <b>Avg {{ avgDiffType }} (If Leave Now)</b>
+						</th>
+						<th class="positive">{{ avgDiffIfLeaveNow }} Hours</th>
+					</tr>
+				</thead>
+			</table>
+		</div>
 		</div>
 	</div>
 	<script src="vue-app.js"></script>
