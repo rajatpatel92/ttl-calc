@@ -50,7 +50,7 @@ var app = new Vue({
                                                 .add({ hours: this.breakTimeHH, minutes: this.breakTimeMM })
                                                 .subtract({ minutes: this.timeBalanceMM });
             } else {
-                this.calculated830avg = this.caluclated700today;
+                this.calculated830avg = this.calculated700;
             }
             return this.calculated830avg.format(this.strFormat);
         },
@@ -67,9 +67,13 @@ var app = new Vue({
             return this.getDiffString(this.calculated830avg.diff(this.currentTime, 'seconds'));
         },
         hrsDoneTillNow: function () {
-            return moment().hour(0).minutes(0).seconds(this.currentTime.diff(this.getInTime(), 'seconds'))
+            if (this.currentTime.diff(this.getInTime(), 'minutes') > this.breakTimeMM) {
+                return moment().hour(0).minutes(0).seconds(this.currentTime.diff(this.getInTime(), 'seconds'))
                             .subtract({ hours: this.breakTimeHH,  minutes: this.breakTimeMM })
                             .format(this.strToGoFormat);
+            } else {
+                return moment().hour(0).minutes(0).format(this.strToGoFormat);
+            }
         },
         avgDiffIfLeaveNow: function () {
             if (this.hrsToGo830avg !== "Done") {
