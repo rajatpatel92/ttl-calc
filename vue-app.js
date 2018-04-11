@@ -47,8 +47,8 @@ var app = new Vue({
             var inTime = moment(this.inTimeHH + ":" + this.inTimeMM, 'HH:mm');
             if (this.timeBalanceMM < 90) {
                 this.calculated830avg = inTime.add({ hours: 8, minutes: 30 })
-                                                .add({ hours: this.breakTimeHH, minutes: this.breakTimeMM })
-                                                .subtract({ minutes: this.timeBalanceMM });
+                                            .add({ hours: this.breakTimeHH, minutes: this.breakTimeMM })
+                                            .subtract({ minutes: this.timeBalanceMM });
             } else {
                 this.calculated830avg = this.calculated700;
             }
@@ -91,7 +91,7 @@ var app = new Vue({
         },
         getDiffString : function (difference) {
             if (difference > 0){
-                return moment().hour(0).minutes(0).seconds(difference).format(this.strToGoFormat) + " to go";
+                return moment().hour(0).minutes(0).seconds(difference).add({ minutes : 1 }).format(this.strToGoFormat) + " to go";
             } else {
                 return "Done";
             }
